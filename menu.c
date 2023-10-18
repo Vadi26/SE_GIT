@@ -12,6 +12,14 @@ int Teacher(const char* password) {
     	    return 0;
 }
 
+int Student(const char* password) {
+    const char* StudentPass = "student";
+    if (strcmp(password, StudentPass) == 0)
+        return 1;
+    else
+        return 0;
+}
+
 void displayMenu() {
     printf("\n \nMenu:\n");
 
@@ -48,10 +56,16 @@ int main() {
     char password[20];
     char subject[20];
     char time_slot[20];
-    int role = 1;
+    int role;
 
     printf("Login Page\n");
     printf("==========\n");
+
+    printf("Select Role:\n");
+    printf("1. Teacher\n");
+    printf("2. Student\n");
+    printf("Enter your choice: ");
+    scanf("%d", &role);
     
     if (role == 1) {
 	    printf("Username (Name_Surname) : ");
@@ -118,6 +132,26 @@ int main() {
             }
         }
         else printf("Invalid teacher credentials. Login failed.\n");
+    }
+    else if (role == 2) 
+    {
+        int MIS;
+        printf("Username: ");
+        scanf("%s", username);
+        printf("MIS : ");
+        scanf("%d", &MIS);
+
+        if (112103001 <= MIS && 112103085 >= MIS) strcpy(class_name, "SY_CE1");
+        else if (112103086 <= MIS && 112103180 >= MIS) strcpy(class_name, "SY_CE2");
+        else if (112003001 <= MIS && 112003085 >= MIS) strcpy(class_name, "TY_CE1");
+        else if (112003086 <= MIS && 112003180 >= MIS) strcpy(class_name, "TY_CE2");
+        else if (111903001 <= MIS && 111903085 >= MIS) strcpy(class_name, "BT_CE1");
+        else if (111903086 <= MIS && 111903180 >= MIS) strcpy(class_name, "BT_CE2");
+        else if (112101001 <= MIS && 112101040 >= MIS) strcpy(class_name, "FY_MT");
+	    else printf("You don't belong to COEPTech \n \n");
+        display_schedule_for_class(class_name);
+        // if (Student(password)) printf("Student login successful. Welcome, %s!\n", username);
+        // else printf("Invalid student credentials. Login failed.\n");
     }
     else printf("Invalid role selection. Login failed.\n");
     return 0;
